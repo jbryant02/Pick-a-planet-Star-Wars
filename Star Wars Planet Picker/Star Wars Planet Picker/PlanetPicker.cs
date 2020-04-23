@@ -12,7 +12,8 @@ namespace Star_Wars
         {
             string cd = Directory.GetCurrentDirectory();
             DirectoryInfo directory = new DirectoryInfo(cd);
-            var fileName = Path.Combine(directory.FullName, "planets.csv"); //Calls the combine method to ensure the path given to the Read
+            string newPath = Path.GetFullPath(Path.Combine(cd, @"..\..\..\"));// Moves up three folders to select the csv.
+            var fileName = Path.Combine(newPath, "planets.csv"); //Calls the combine method to ensure the path given to the Read
             var fileContents = ReadDocument.ReadSWPlanets(fileName); //Calls the ReadSWPlanets method within the ReadDocument class and passes through the file name from the above line.
             var planet = new List<SWPlanets>();
             var topFivePop = Calculations.GetMostPopulous(fileContents);
