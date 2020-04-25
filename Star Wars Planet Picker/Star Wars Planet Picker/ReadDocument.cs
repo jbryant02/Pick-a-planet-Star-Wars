@@ -12,7 +12,7 @@ namespace Star_Wars
             using (CsvReader stream = new CsvReader(fileName)) //opens new CSV reader from the CSV reader class.
             {
                 
-                {
+                    var counter = 0;
                     foreach (string[] values in stream.RowEnumerator)  //starts a loop to read through each line. The first line is already read in the Csvreader class, through a line I keyed.
                     {
                         var starWarsPlanets = new SWPlanets(); //instantiates a SWPlanets class to be used to assigned values in the loop.
@@ -60,12 +60,13 @@ namespace Star_Wars
                         {
                             starWarsPlanets.Population = 0;
                         }
+                        starWarsPlanets.Number = counter;
+                        
 
 
                         sWarsPlanets.Add(starWarsPlanets);
-                    }
+                    counter++;
                 }
-
             }
             return sWarsPlanets;
         }

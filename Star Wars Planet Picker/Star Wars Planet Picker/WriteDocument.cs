@@ -20,9 +20,9 @@ namespace Star_Wars
                     var newSWP = new SWPlanets();
                     Console.WriteLine("Perhaps the archives are incomplete?");
                     Console.WriteLine("First enter in a planet name");
-                    newSWP.Name = Console.ReadLine();
+                    newSWP.Name = Console.ReadLine(); 
                     Console.WriteLine("Now enter in an rotational period, enter 0 if unknown. No letters!");
-                ReadRotation: if (Int32.TryParse(Console.ReadLine(), out int Rotation))
+                ReadRotation: if (Int32.TryParse(Console.ReadLine(), out int Rotation)) //parses selection, the following code then attaches the newSWP and the selected values to a SWPlanet object.
                     {
                         newSWP.Rotation_period = Rotation;
                     }
@@ -51,7 +51,7 @@ namespace Star_Wars
                         Console.WriteLine("Please enter a valid selection");
                         goto ReadDiameter;
                     }
-                    Console.WriteLine("Now enter in Climate information, in order to correctly submit multiple entries, please key as comma seperated values without spaces- I.E. - temperate,artic");
+                    Console.WriteLine("Now enter in Climate information, in order to correctly submit multiple entries, please key as comma seperated values without spaces- I.E. - temperate,arctic");
                     newSWP.Climate = Console.ReadLine();
                     Console.WriteLine("Please enter the graviational constant. If unknown, please type 0");
                     newSWP.Gravity = Console.ReadLine();
@@ -78,33 +78,25 @@ namespace Star_Wars
                         goto ReadPopulation;
                     }
 
-                    Console.WriteLine($"Confirm you would like to add {newSWP.Name} as a planet. Key Y to confirm, Key anything else to cancel.");
-                    string selection = Console.ReadLine().ToUpper();
-                    if (selection == "Y")
+                    Console.WriteLine($"Confirm you would like to add {newSWP.Name} as a planet. Key Y to confirm, Key anything else to cancel and return to the main menu");
+                    string selection = Console.ReadLine().ToUpper(); //checks confirmation by reading a string and converting it to upper.
+                    if (selection == "Y") //checks against selection to determine if the user wants to confirm.
                     {
-                        var newPlanet = String.Join(",", newSWP.Name, newSWP.Rotation_period, newSWP.Orbital_period, newSWP.Diameter, newSWP.Climate, newSWP.Gravity, newSWP.Terrain, newSWP.Surface_water, newSWP.Population);
+                        var newPlanet = String.Join(",", newSWP.Name, newSWP.Rotation_period, newSWP.Orbital_period, newSWP.Diameter, $"\"{newSWP.Climate}\"", newSWP.Gravity, $"\"{newSWP.Terrain}\"", newSWP.Surface_water, newSWP.Population); //Joins the objects attributes. Adds double quotations to fields that could have additional commas.
                         Console.WriteLine(newPlanet);
-                        using (StreamWriter sww = new StreamWriter(fs))
+                        using (StreamWriter sww = new StreamWriter(fs)) 
                         {
-                              sww.WriteLine(newPlanet);
+                              sww.WriteLine($"{newPlanet}"); //appends string to the end of the csv.
                         }
                     }
                     else
                     {
-
+                        PlanetPicker.DisplayMainMenu();
                     }
-
-
-
-                    //var csv = new StringBuilder();
-                    //allLines.ForEach(line =>
-                    //{
-                    //    csv.AppendLine(string.Join(",", line));
-                    //});
-
-                    //File.WriteAllText(filePath, csv.ToString());
+                    Console.WriteLine($"{newSWP.Name} has been created.");
                 }
             }
+            PlanetPicker.DisplayMainMenu();
         }
 
     }

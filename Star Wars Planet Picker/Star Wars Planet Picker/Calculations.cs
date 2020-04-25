@@ -82,8 +82,7 @@ namespace Star_Wars
             }
             
         ReadLine: var biomePick = Console.ReadLine(); //reads the Biome selected.
-            int biomePickParse;
-            bool success = Int32.TryParse(biomePick, out biomePickParse); //Parses the biome to an int to be used in the PickMyPlanet method.
+            bool success = Int32.TryParse(biomePick, out int biomePickParse); //Parses the biome to an int to be used in the PickMyPlanet method.
             if (success)
             {
             }
