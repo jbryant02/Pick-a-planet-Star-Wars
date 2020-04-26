@@ -88,12 +88,12 @@ namespace Star_Wars
             }
             else
             {
-                Console.WriteLine("Please enter in a valid number... Sorry... TK421 is not a number.");
+                Confirmations.NotANumber();
                 goto ReadLine;
             }
             if (biomePickParse > BiomeDict.Count || biomePickParse < 0)
             {
-                Console.WriteLine("Please enter a number within the range... because right now it's as if millions of voices cried out and were suddenly silenced");
+                Confirmations.WithinRange();
                 goto ReadLine;
             }
             else
@@ -113,12 +113,12 @@ namespace Star_Wars
             }
             else
             {
-                Console.WriteLine("Please enter in a valid number... and never tell me the odds"); //Ensures input can be converted into an int.
+                Confirmations.NotANumber();
                 goto ReadLine;
             }
             if (popPickParse < 1 || popPickParse > 3) //Ensures number selected is within scope.
             {
-                Console.WriteLine("Please enter a number within the range-- for example... three thousand seven hundred and twenty is too high!");
+                Confirmations.WithinRange();
                 goto ReadLine;
             }
             else
@@ -137,12 +137,12 @@ namespace Star_Wars
             }
             else
             {
-                Console.WriteLine("Please enter in a valid number... and stop that ship... Blast em!"); //Ensures input can be converted into an int.
+                Confirmations.NotANumber(); //Ensures input can be converted into an int.
                 goto ReadLine;
             }
             if (waterPickParse < 1 || waterPickParse > 3) //Ensures number selected is within scope.
             {
-                Console.WriteLine("Please enter a number within the range-- or one thing's for sure, we're all gonna be a lot thinner!");
+                Confirmations.WithinRange();
                 goto ReadLine;
             }
             else
@@ -318,6 +318,15 @@ namespace Star_Wars
                 counter++;
             }
 
+        }
+        public static void ListAllPlanets(List<SWPlanets> sw)
+        {
+            var counter = 0;
+            foreach (var i in sw) //sorts through planets and provides all info.
+            {
+                Console.WriteLine($"Name: {sw[counter].Name}, Rotational Period: {sw[counter].Rotation_period}, Orbital Period: {sw[counter].Orbital_period}, Diameter: {sw[counter].Diameter}, Climate(s): {sw[counter].Climate}, Gravity Constant: {sw[counter].Gravity}, Terrain(s): {sw[counter].Terrain}, Surface Water: {sw[counter].Surface_water}%, Population: {sw[counter].Population}");
+                counter++;
+            }
         }
     }
 }

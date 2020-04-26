@@ -10,58 +10,39 @@ namespace Star_Wars
     {
         public static void DeleteSWPlanets(string fileName, List<SWPlanets> sw)
         {
-            var counter = 0;
-            foreach (var p in sw)
-            {
-                Console.WriteLine($"{sw[counter].Number}:{sw[counter].Name}"); //lists the planets so they can select deletion.
-                counter++;
-            }
-            Console.WriteLine("Please type corresponding number to the planet you would like to remove");
-            var selectionDelete = Console.ReadLine();
-            var success = Int32.TryParse(selectionDelete, out int selectionDeleteParse); //try parse to convert to int.
-            var storedNameforConfirmation = selectionDeleteParse;
-            Console.WriteLine($"Confirm you would like to delete {sw[selectionDeleteParse].Name} as a planet. Key Y to confirm, key anything else to cancel and return to the main menu");
-            string selectionConfirm = Console.ReadLine().ToUpper();
-            if (selectionConfirm == "Y") //confirmation button to ensure deletion.
+            ListPlanets(sw); // calls the list sw planets to display names and numbers of planets.
+            var selectionDeleteParse = SelectSWPlanetsEdit(sw);
+            var storedNameforConfirmation = sw[selectionDeleteParse].Name;
+            if (Confirmations.Confirm()) //calls the confirmation method to check to see if user confirms.
             {
                 ReWriteSWPlanets(fileName, sw, selectionDeleteParse);
             }
             else
             {
-                PlanetPicker.DisplayMainMenu();
+                MainMenu.DisplayMainMenu();
             }
             Console.WriteLine($" {storedNameforConfirmation} has been deleted.");
-            PlanetPicker.DisplayMainMenu();
+            MainMenu.DisplayMainMenu();
         }
         public static void AlterSWPlanets(string fileName, List<SWPlanets> sw)
         {
-            var counter = 0;
-            foreach (var p in sw)
+            ListPlanets(sw); // calls the list sw planets to display names and numbers of planets.
+            var selectionEditParse = SelectSWPlanetsEdit(sw);
+            var storedNameforConfirmation = sw[selectionEditParse].Name;;
+            if (Confirmations.Confirm()) //calls the confirmation method to check to see if user confirms.
             {
-                Console.WriteLine($"{sw[counter].Number}:{sw[counter].Name}"); //lists the planets so they can select a planet to edit.
-                counter++;
-            }
-            Console.WriteLine("Please type corresponding number to the planet you would like to edit");
-            var selectionEdit = Console.ReadLine();
-            var success = Int32.TryParse(selectionEdit, out int selectionEditParse); //try parse to convert to int.
-            var storedNameforConfirmation = selectionEditParse;
-            Console.WriteLine($"Confirm you would like to edit {sw[selectionEditParse].Name} as a planet. Key Y to confirm, key anything else to cancel and return to the main menu");
-            string selectionConfirm = Console.ReadLine().ToUpper();
-            if (selectionConfirm == "Y") //confirmation button to ensure deletion.
-            {
-
                 ReWriteSWPlanets(fileName, sw, selectionEditParse);
                 WriteDocument.WriteSWPlanets(fileName, sw); //Calls the WriteSWPlanet Method to add back the selected planets with the new info.
             }
             else
             {
-                PlanetPicker.DisplayMainMenu();
+                MainMenu.DisplayMainMenu();
             }
             Console.WriteLine($" {storedNameforConfirmation} has been edited.");
-            PlanetPicker.DisplayMainMenu();
+            MainMenu.DisplayMainMenu();
         }
 
-        public static void ReWriteSWPlanets(string fileName, List<SWPlanets> sw, int selectionParse)
+        public static void ReWriteSWPlanets(string fileName, List<SWPlanets> sw, int selectionParse) //rewrites all planets except the one being edited or deleted.
         {
             using (StreamWriter streamWriter = new StreamWriter(fileName))
             {
@@ -78,7 +59,25 @@ namespace Star_Wars
                 }
             }
         }
+        public static int SelectSWPlanetsEdit(List<SWPlanets> sw) //avoids duplicating code used by both edit and delete. Gets a number for both, and returns that to the method,
+        {
+            Console.WriteLine("Please type corresponding number to the planet you would like to edit/delete");
+            var selectionEdit = Console.ReadLine();
+            var success = Int32.TryParse(selectionEdit, out int selectionEditParse); //try parse to convert to int.
+            Console.WriteLine($"Confirm you would like to edit/delete {sw[selectionEditParse].Name} as a planet. Key Y to confirm, key anything else to cancel and return to the main menu");
+            return selectionEditParse;
 
+        }
+
+        public static void ListPlanets(List<SWPlanets> sw)
+        {
+            var counter = 0;
+            foreach (var p in sw)
+            {
+                Console.WriteLine($"{sw[counter].Number}:{sw[counter].Name}"); //lists the planets so they can select a planet to edit.
+                counter++;
+            }
+        }
     }
 }
 

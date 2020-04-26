@@ -32,7 +32,7 @@ namespace Star_Wars
         public string Terrain { get => _terrain; set => _terrain = value; }
         public int Surface_water { get => _surface_water; set => _surface_water = value; }
         public Int64 Population { get => _population; set => _population = value; }
-        public int Score { get => _score; set => _score = value; } 
+        public int Score { get => _score; set => _score = value; }
         public int LowPopulation { get => _lowPopulation; private set => _lowPopulation = value; } //private set prevents change to numbers.
         public Int64 MedPopulation { get => _medPopulation; private set => _medPopulation = value; } //private set prevents change to numbers.
         public int LowSurfaceWater { get => _lowSurfaceWater; private set => _lowSurfaceWater = value; }
