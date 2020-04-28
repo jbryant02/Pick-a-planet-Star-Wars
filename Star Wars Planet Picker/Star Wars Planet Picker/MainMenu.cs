@@ -8,56 +8,63 @@ namespace Star_Wars
     {
         public static void DisplayMainMenu()
         {
-            Console.WriteLine("Please select an option below: \n" +
-                "1: Display a list of all current planets. \n" +
-                "2: Show some superlatives about the planets \n" +
-                "3: Create a new planet \n" +
-                "4: Edit an existing planet \n" +
-                "5: Delete an existing planet \n" +
-                "6: Answer a few questions to find a Stars planet that suits you!");
-            var fileName = ReadDocument.ReadFileforPath();
-            var mainMenuPick = Console.ReadLine();
+            Console.WriteLine("-------------------------------------------------------------------------" +
+                "\nPlease select an option below:                                          ||\n" +
+                "[1]: Display a list of all current planets.                             ||\n" +
+                "[2]: Show some superlatives about the planets.                          ||\n" +
+                "[3]: Create a new planet                                                ||\n" +
+                "[4]: Edit an existing planet                                            ||\n" +
+                "[5]: Delete an existing planet                                          ||\n" +
+                "[6]: Answer a few questions to find a Star Wars planet that suits you!  ||\n" +
+                "[7]: Exit program                                                       ||" +
+                "\n-------------------------------------------------------------------------");
+            var fileName = ReadDocument.ReadFileforPath(); //calls read file path method to get to the directory that contains the csv and saves it as a string.
+            var mainMenuPick = Console.ReadLine(); //prompts user input to get a selection.
             var success = Int32.TryParse(mainMenuPick, out int mainMenuSelectionParse);
             if (success)
             {
                 if (mainMenuSelectionParse == 1) //Called methods here and below instead of using the if statements in case I ever want to expand the program to be able to call a method without relying on user input.
                 {
-                    ListofPlanets(fileName);
+                    ListofPlanets(fileName);  //List planets
                 }
                 if (mainMenuSelectionParse == 2)
                 {
-                    Superlatives(fileName);
+                    Superlatives(fileName); //List superlatives
                 }
                 if (mainMenuSelectionParse == 3)
                 {
-                    CreateAPlanet(fileName);
+                    CreateAPlanet(fileName); //Create a planet
                 }
                 if (mainMenuSelectionParse == 4)
                 {
-                    EditAPlanet(fileName);
+                    EditAPlanet(fileName); //Edit a planet
                 }
                 if (mainMenuSelectionParse == 5)
                 {
-                    DeleteAPlanet(fileName);
+                    DeleteAPlanet(fileName); //Delete a planet
                 }
                 if (mainMenuSelectionParse == 6)
                 {
-                    PickMyPlanet(fileName);
+                    PickMyPlanet(fileName); //Primary intended function, helps user find a planet they might be interested after a short quiz.
+                }
+                if (mainMenuSelectionParse == 7)
+                {
+                    Environment.Exit(0); //Exits program.
                 }
                 else
                 {
-                    Confirmations.WithinRange();
+                    Confirmations.WithinRange(); //confirms within range.
                 }
             }
             else
             {
-                Confirmations.NotANumber();
+                Confirmations.NotANumber(); //Confirms user input is a number.
             }
         }
-
+        //The methods below are designed to re-read every time they are called... this was done because when a user changes something, it should be reflected in the data the next time they try and call another method,
         public static void ListofPlanets(string fileName)
         {
-            var fileContents = ReadDocument.ReadFileforList(fileName); //The methods are designed to read every time... this was done because when a user changes something, it should be reflected in the data the next time they try and call another method,
+            var fileContents = ReadDocument.ReadFileforList(fileName); 
             Calculations.ListAllPlanets(fileContents);
             Confirmations.Return();
         }
@@ -72,34 +79,43 @@ namespace Star_Wars
         }
         public static void CreateAPlanet(string fileName)
         {
-            Console.WriteLine("Perhaps the archives are incomplete?");
+            Console.WriteLine("It should be here... but it isn't.\n");
             var fileContents = ReadDocument.ReadFileforList(fileName);
             WriteDocument.WriteSWPlanets(fileName, fileContents);
             Confirmations.Return();
         }
         public static void EditAPlanet(string fileName)
         {
+            Console.WriteLine("Perhaps the archives are incomplete?\n");
             var fileContents = ReadDocument.ReadFileforList(fileName);
-            EditPlanet.AlterSWPlanets(fileName, fileContents); //Will need to initate a new document read in case the user has created a new planet.
+            EditPlanet.AlterSWPlanets(fileName, fileContents); 
             Confirmations.Return();
         }
         public static void DeleteAPlanet(string fileName)
         {
+            Console.WriteLine("I felt a great disturbance in the Force, as if millions of voices suddenly cried out in terror and were suddenly silenced.\n");
             var fileContents = ReadDocument.ReadFileforList(fileName);
             EditPlanet.DeleteSWPlanets(fileName, fileContents);
             Confirmations.Return();
         }
         public static void PickMyPlanet(string fileName)
         {
-            var fileContents = ReadDocument.ReadFileforList(fileName);
-            var biomes = Calculations.GetBiomes(fileContents);
-            var pickPop = Calculations.PickPopulation();
-            var pickBiome = Calculations.PickBiome(biomes);
-            var pickBiome2 = Calculations.PickBiome(biomes);
-            var pickBiome3 = Calculations.PickBiome(biomes);
-            var pickSurfaceWater = Calculations.PickSurfaceWater();
-            var myPlanet = Calculations.PickMyPlanet(pickPop, pickBiome, pickBiome2, pickBiome3, pickSurfaceWater, fileContents);
-            Confirmations.PrintScore(fileContents);
+            Console.WriteLine("You will answer a couple of questions and select three biomes of choice. " +
+                "\nFor each answer you give it will find all of the planets that meet that critera. " +
+                "\nWhen finished it will display a list of the top five planets with \nthe most amount of matches to your critera." +
+                "\n \nPress Y to continue, R to return to the main menu or anything else to exit.");
+            if (Confirmations.Confirm())
+            {
+                var fileContents = ReadDocument.ReadFileforList(fileName);
+                var biomes = Calculations.GetBiomes(fileContents);
+                var pickPop = Calculations.PickPopulation();
+                var pickBiome = Calculations.PickBiome(biomes);
+                var pickBiome2 = Calculations.PickBiome(biomes);
+                var pickBiome3 = Calculations.PickBiome(biomes);
+                var pickSurfaceWater = Calculations.PickSurfaceWater();
+                Calculations.PickMyPlanet(pickPop, pickBiome, pickBiome2, pickBiome3, pickSurfaceWater, fileContents);
+                Confirmations.PrintScore(fileContents);
+            }
             Confirmations.Return();
         }
     }

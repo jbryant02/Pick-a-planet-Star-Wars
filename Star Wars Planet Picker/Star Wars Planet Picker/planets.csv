@@ -13,7 +13,7 @@ Utapau,27,351,12900,"temperate, arid, windy",1 standard,"scrublands,savannahs,ca
 Mustafar,36,412,4200,"hot",1 standard,"volcanoes,lava rivers,mountains,caves",0,20000 
 Kashyyyk,26,381,12765,"tropical",1 standard,"jungles,forests,lakes,rivers",60,45000000 
 Polis Massa,24,590,0,"artificial temperate ",0.56 standard,"airless asteroid",0,1000000 
-Mygeeto,12,167,10088,"frigid",1 standard,"glaciers,mountains,ice canyons",0,19000000 
+Mygeeto,12,167,10088,"frigid",1 standard,"glaciers,mountains,ice canyons",60,19000000 
 Felucia,34,231,9100,"hot, humid",0.75 standard,"fungus forests",10,8500000 
 Cato Neimoidia,25,278,0,"temperate, moist",1 standard,"mountains,fields,forests,rock arches",10,10000000 
 Saleucami,26,392,14920,"hot",NA,"caves,deserts,mountains,volcanoes",0,1400000000 

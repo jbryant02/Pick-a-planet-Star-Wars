@@ -16,8 +16,8 @@ namespace Star_Wars
         private int _surface_water;
         private Int64 _population;
         private int _score = 0;
-        private int _lowPopulation = 10_000_000; //lower than 1,000,000
-        private Int64 _medPopulation = 3_000_000_000; // between 1,000,000 and 300,000,0000
+        private int _lowPopulation = 10_000_000; //lower than 10,000,000
+        private Int64 _medPopulation = 3_000_000_000; // between 1,000,000 and 3,000,000,0000
         private int _lowSurfaceWater = 30;
         private int _medSurfaceWater = 60;
         private int number;

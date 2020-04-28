@@ -11,6 +11,7 @@ namespace Star_Wars
 
         public static void Main(string[] args)
         {
+ 
             MainMenu.DisplayMainMenu();//User input beings.
         }
 

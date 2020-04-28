@@ -45,7 +45,6 @@ namespace Star_Wars
             foreach (var i in biome)
             {
                 biomeString.Add(i.Terrain.ToString());
-                //Console.WriteLine(biomeString[counter]);
                 counter++;
             }
             char[] stringsToTrim = { '\n', ' ', '\r', '\t', ',' };
@@ -53,13 +52,6 @@ namespace Star_Wars
             string[] biomeSplit = biomeArray.Split(","); //Splits the array into a list of strings to seperate the values hidden within the cells
             var biomeDistinct = biomeSplit.Distinct(); //Gives only the distinct terrains.
             var biomeList = biomeDistinct.ToList(); //Converts to a list.
-            var counter1 = 0;
-            foreach (var i in biomeList)
-            {
-
-                //Console.WriteLine(biomeList[counter1]);
-                counter1++;
-            }
             return biomeList; //returns List
         }
 
@@ -105,7 +97,10 @@ namespace Star_Wars
 
         public static int PickPopulation()
         {
-            Console.WriteLine($"Which population size do you prefer? Select 1 for Small, 2 for Medium, or 3 for Large");
+            Console.WriteLine($"Which population size do you prefer? \n" +
+                $"Select 1 for Small (Less than 10 million)\n" +
+                $"Select 2 for Medium (Between 10 million and 3 billion)\n" +
+                $"Select 3 for Large (In excess of 3 billion)");
         ReadLine: var popPick = Console.ReadLine(); //reads the population selected.
             bool success = Int32.TryParse(popPick, out int popPickParse); //Parses the biome to an int to be used in the PickMyPlanet method.
             if (success)
@@ -129,7 +124,10 @@ namespace Star_Wars
 
         public static int PickSurfaceWater()
         {
-            Console.WriteLine($"Which surface water size size do you prefer? Select 1 for Small (0%-29.99%), 2 for Medium(30%-60%), or 3 for Large(60.01%+)");
+            Console.WriteLine($"Which surface water % do you prefer? \n" +
+                $"Select 1 for Small (0%-29.99%)\n" +
+                $"Select 2 for Medium(30%-60%) \n" +
+                $"Select 3 for Large(60.01%+)");
         ReadLine: var waterPick = Console.ReadLine();
             bool success = Int32.TryParse(waterPick, out int waterPickParse);
             if (success)
@@ -152,7 +150,7 @@ namespace Star_Wars
 
         }
 
-        public static string PickMyPlanet(int popq, int terrainq, int terrainq2, int terrainq3, int waterq, List<SWPlanets> sw)
+        public static void PickMyPlanet(int popq, int terrainq, int terrainq2, int terrainq3, int waterq, List<SWPlanets> sw)
         {
 
             if (popq == 1)
@@ -165,8 +163,6 @@ namespace Star_Wars
                 foreach (var i in lowPopList)
                 {
                     lowPopList[counter].Score += 100;
-                    //Console.WriteLine(lowPopList[counter].Name);
-                    //Console.WriteLine(lowPopList[counter].Score);
                     counter++;
                 }
             }
@@ -181,8 +177,6 @@ namespace Star_Wars
                 foreach (var i in medPopList)
                 {
                     medPopList[counter].Score += 100;
-                    //Console.WriteLine(medpopList[counter].Name);
-                    //Console.WriteLine(medpopList[counter].Score);
                     counter++;
                 }
             }
@@ -197,8 +191,6 @@ namespace Star_Wars
                 foreach (var i in highPopList)
                 {
                     highPopList[counter].Score += 100;
-                    //Console.WriteLine(highpopList[counter].Name);
-                    //Console.WriteLine(highpopList[counter].Score);
                     counter++;
                 }
             }
@@ -213,8 +205,6 @@ namespace Star_Wars
                 foreach (var i in biomeScoreList)
                 {
                     biomeScoreList[counter].Score += 100; //Takes all selected values and adds 100 to the score.
-                    //Console.WriteLine(biomeScoreList[counter].Name);
-                    //Console.WriteLine(biomeScoreList[counter].Score);
                     counter++;
                 }
             }
@@ -228,8 +218,6 @@ namespace Star_Wars
                 foreach (var i in biomeScoreList)
                 {
                     biomeScoreList[counter].Score += 100;
-                    //Console.WriteLine(biomeScoreList[counter].Name);
-                    //Console.WriteLine(biomeScoreList[counter].Score);
                     counter++;
                 }
             }
@@ -243,8 +231,6 @@ namespace Star_Wars
                 foreach (var i in biomeScoreList)
                 {
                     biomeScoreList[counter].Score += 100;
-                    //Console.WriteLine(biomeScoreList[counter].Name);
-                    //Console.WriteLine(biomeScoreList[counter].Score);
                     counter++;
                 }
             }
@@ -255,7 +241,7 @@ namespace Star_Wars
 
             if (waterq == 1)  //sorts through water selection, adds score if value is selected to appropriate planets.
             {
-                var smallWater = from i in sw
+                var smallWater = from i in sw //the code below matches the selection to planets meeting the criteria and assigns them a score of an additonal 100.
                               where (i.Surface_water < 30)
                               select i;
                 var smallWaterList = smallWater.ToList();
@@ -289,8 +275,6 @@ namespace Star_Wars
                 foreach (var i in largeWaterList)
                 {
                     largeWaterList[counter].Score += 100;
-                    //Console.WriteLine(largeWaterList[counter].Name);
-                    //Console.WriteLine(largeWaterList[counter].Score);
                     counter++;
                 }
             }
@@ -303,28 +287,31 @@ namespace Star_Wars
             Console.WriteLine("Based upon your results, your top planets are:");
             foreach (var i in pickedPlanetsList)
             {
-                Console.WriteLine($"{pickedPlanetsList[counter1].Name} with a score of {pickedPlanetsList[counter1].Score} out of 500... Let me google that for you! https://www.google.com/search?q=Wookiepedia_{pickedPlanetsList[counter1].Name.Replace(" ","")}");
+                Console.WriteLine($"{pickedPlanetsList[counter1].Name} with a criteria matched  " +
+                    $"{pickedPlanetsList[counter1].Score / 100} out of 5... Let me google that for you! \n" + 
+                    //Displays the score divided by 100 to get the total match. Originally had a 100 based score, but decided that planets that matched x number of critera 
+                    //more clear and it was more simple to divide this by 100 then change all the score calculations.
+                    $"https://www.google.com/search?q=Wookiepedia_{pickedPlanetsList[counter1].Name.Replace(" ","")}"); //Prints out a hyper link to google with a search for the planet.
                 counter1++;
             }
-
-            return "";
         }
         public static void ListPlanetsScore(List<SWPlanets> sw)
         {
             var counter = 0;
             foreach (var i in sw) //sorts through planets and provides names and scores.
             {
-                Console.WriteLine($"{sw[counter].Name}: {sw[counter].Score}");
+                Console.WriteLine($"{sw[counter].Name}: {sw[counter].Score / 100}");
                 counter++;
             }
-
         }
         public static void ListAllPlanets(List<SWPlanets> sw)
         {
             var counter = 0;
             foreach (var i in sw) //sorts through planets and provides all info.
             {
-                Console.WriteLine($"Name: {sw[counter].Name}, Rotational Period: {sw[counter].Rotation_period}, Orbital Period: {sw[counter].Orbital_period}, Diameter: {sw[counter].Diameter}, Climate(s): {sw[counter].Climate}, Gravity Constant: {sw[counter].Gravity}, Terrain(s): {sw[counter].Terrain}, Surface Water: {sw[counter].Surface_water}%, Population: {sw[counter].Population}");
+                Console.WriteLine($"{sw[counter].Name}: Climate(s): {sw[counter].Climate}, \n " +
+                    $"Terrain(s): {sw[counter].Terrain}, Surface Water: {sw[counter].Surface_water}%, \n " +
+                    $"Population: {sw[counter].Population} \n"); //excluded some mostly unused items to reduce the amount of content.
                 counter++;
             }
         }

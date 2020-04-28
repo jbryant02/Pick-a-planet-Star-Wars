@@ -82,7 +82,6 @@ namespace Star_Wars
         public static List<SWPlanets> ReadFileforList(string fn)
         {
             var fileContents = ReadDocument.ReadSWPlanets(fn); //Calls the ReadSWPlanets method within the ReadDocument class and passes through the file name from the above line.
-            var planet = new List<SWPlanets>();
             return fileContents;
         }
     }

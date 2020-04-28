@@ -19,9 +19,11 @@ namespace Star_Wars
             }
             else
             {
+                Console.Clear();
                 MainMenu.DisplayMainMenu();
             }
-            Console.WriteLine($" {storedNameforConfirmation} has been deleted.");
+            Console.Clear();
+            Console.WriteLine($"{storedNameforConfirmation} has been deleted.");
             MainMenu.DisplayMainMenu();
         }
         public static void AlterSWPlanets(string fileName, List<SWPlanets> sw)
@@ -36,9 +38,11 @@ namespace Star_Wars
             }
             else
             {
+                Console.Clear();
                 MainMenu.DisplayMainMenu();
             }
-            Console.WriteLine($" {storedNameforConfirmation} has been edited.");
+            Console.Clear();
+            Console.WriteLine($"{storedNameforConfirmation} has been edited.");
             MainMenu.DisplayMainMenu();
         }
 

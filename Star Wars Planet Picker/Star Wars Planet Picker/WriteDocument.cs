@@ -81,7 +81,6 @@ namespace Star_Wars
                     if (Confirmations.Confirm()) //calls the confirmation method to check to see if user confirms.
                     {
                         var newPlanet = String.Join(",", newSWP.Name, newSWP.Rotation_period, newSWP.Orbital_period, newSWP.Diameter, $"\"{newSWP.Climate}\"", newSWP.Gravity, $"\"{newSWP.Terrain}\"", newSWP.Surface_water, newSWP.Population); //Joins the objects attributes. Adds double quotations to fields that could have additional commas.
-                        Console.WriteLine(newPlanet);
                         using (StreamWriter sww = new StreamWriter(fs))
                         {
                             sww.WriteLine($"{newPlanet}"); //appends string to the end of the csv.
@@ -91,6 +90,7 @@ namespace Star_Wars
                     {
                         MainMenu.DisplayMainMenu();
                     }
+                    Console.Clear();
                     Console.WriteLine($"{newSWP.Name} has been created.");
                 }
             }
