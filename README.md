@@ -17,7 +17,7 @@ I used if statements to call the main menu methods rather than putting the code 
 
 ## Starting the program
 
-If the .NET framework is installed in visual studio it should be as simple as opening the project and running it. There is a short cut to an exe within the bin folder that I was able to use to start the project, I am unsure if this requires any additional changes to the settings.
+If the .NET framework is installed in visual studio it should be as simple as opening the project and running it. There is a short cut to an exe within near the top of the main path that is routed from the bin folder that I was able to use to start the project, I am unsure if this requires any additional changes to the settings.
 
 ## Data source
 
