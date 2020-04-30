@@ -64,12 +64,14 @@ namespace Star_Wars
         //The methods below are designed to re-read every time they are called... this was done because when a user changes something, it should be reflected in the data the next time they try and call another method,
         public static void ListofPlanets(string fileName)
         {
+            Console.Clear();
             var fileContents = ReadDocument.ReadFileforList(fileName); 
             Calculations.ListAllPlanets(fileContents);
             Confirmations.Return();
         }
         public static void Superlatives(string fileName)
         {
+            Console.Clear();
             var fileContents = ReadDocument.ReadFileforList(fileName);
             var topFivePop = Calculations.GetMostPopulous(fileContents);
             var bottomFivePop = Calculations.GetLeastPopulous(fileContents);
@@ -79,6 +81,7 @@ namespace Star_Wars
         }
         public static void CreateAPlanet(string fileName)
         {
+            Console.Clear();
             Console.WriteLine("It should be here... but it isn't.\n");
             var fileContents = ReadDocument.ReadFileforList(fileName);
             WriteDocument.WriteSWPlanets(fileName, fileContents);
@@ -86,6 +89,7 @@ namespace Star_Wars
         }
         public static void EditAPlanet(string fileName)
         {
+            Console.Clear();
             Console.WriteLine("Perhaps the archives are incomplete?\n");
             var fileContents = ReadDocument.ReadFileforList(fileName);
             EditPlanet.AlterSWPlanets(fileName, fileContents); 
@@ -93,6 +97,7 @@ namespace Star_Wars
         }
         public static void DeleteAPlanet(string fileName)
         {
+            Console.Clear();
             Console.WriteLine("I felt a great disturbance in the Force, as if millions of voices suddenly cried out in terror and were suddenly silenced.\n");
             var fileContents = ReadDocument.ReadFileforList(fileName);
             EditPlanet.DeleteSWPlanets(fileName, fileContents);
@@ -100,21 +105,23 @@ namespace Star_Wars
         }
         public static void PickMyPlanet(string fileName)
         {
+            Console.Clear();
             Console.WriteLine("You will answer a couple of questions and select three biomes of choice. " +
                 "\nFor each answer you give it will find all of the planets that meet that critera. " +
                 "\nWhen finished it will display a list of the top five planets with \nthe most amount of matches to your critera." +
                 "\n \nPress Y to continue, R to return to the main menu or anything else to exit.");
             if (Confirmations.Confirm())
             {
-                var fileContents = ReadDocument.ReadFileforList(fileName);
-                var biomes = Calculations.GetBiomes(fileContents);
-                var pickPop = Calculations.PickPopulation();
-                var pickBiome = Calculations.PickBiome(biomes);
+                Calculations.DictClear(); //clears the dictionary so the test can be retaken.
+                var fileContents = ReadDocument.ReadFileforList(fileName); //reads doc
+                var biomes = Calculations.GetBiomes(fileContents); //gets a list of biome
+                var pickPop = Calculations.PickPopulation(); //prompts population pick
+                var pickBiome = Calculations.PickBiome(biomes); //next three questions take biome selections.
                 var pickBiome2 = Calculations.PickBiome(biomes);
                 var pickBiome3 = Calculations.PickBiome(biomes);
-                var pickSurfaceWater = Calculations.PickSurfaceWater();
-                Calculations.PickMyPlanet(pickPop, pickBiome, pickBiome2, pickBiome3, pickSurfaceWater, fileContents);
-                Confirmations.PrintScore(fileContents);
+                var pickSurfaceWater = Calculations.PickSurfaceWater(); //prompts and reads surface water question
+                Calculations.PickMyPlanet(pickPop, pickBiome, pickBiome2, pickBiome3, pickSurfaceWater, fileContents); //takes all the previous variables to get score.
+                Confirmations.PrintScore(fileContents); //Prints score.
             }
             Confirmations.Return();
         }

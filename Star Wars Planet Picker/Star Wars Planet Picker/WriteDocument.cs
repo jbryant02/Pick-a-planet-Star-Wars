@@ -21,59 +21,68 @@ namespace Star_Wars
                     Console.WriteLine("First enter in a planet name");
                     newSWP.Name = Console.ReadLine();
                     Console.WriteLine("Now enter in an rotational period, enter 0 if unknown. No letters!");
-                ReadRotation: if (Int32.TryParse(Console.ReadLine(), out int Rotation)) //parses selection, the following code then attaches the newSWP and the selected values to a SWPlanet object.
+                ReadRotation: if (Int32.TryParse(Console.ReadLine(), out int Rotation) && Rotation >= 0) //parses selection, the following code then attaches the newSWP and the selected values to a SWPlanet object.
                     {
                         newSWP.Rotation_period = Rotation;
                     }
                     else
                     {
-                        Console.WriteLine("Please enter a valid selection");
+                        Console.WriteLine("Please enter a valid selection..." +
+                            "\ntry and not enter too many zeros! No negatives!");
                         goto ReadRotation;
                     }
                     Console.WriteLine("Now enter in an orbital period, enter 0 if unknown. No letters!");
-                ReadOrbit: if (Int32.TryParse(Console.ReadLine(), out int Orbit))
+                ReadOrbit: if (Int32.TryParse(Console.ReadLine(), out int Orbit) && Orbit >= 0)
                     {
                         newSWP.Orbital_period = Orbit;
                     }
                     else
                     {
-                        Console.WriteLine("Please enter a valid selection");
+                        Console.WriteLine("Please enter a valid selection... " +
+                            "\ntry and not enter too many zeros!  No negatives!");
                         goto ReadOrbit;
                     }
-                    Console.WriteLine("Now enter in a Diameter, enter 0 if unknown. No letters!");
-                ReadDiameter: if (Int32.TryParse(Console.ReadLine(), out int Diameter))
+                    Console.WriteLine("Now enter in a Diameter in km, enter 0 if unknown. No letters!");
+                ReadDiameter: if (Int32.TryParse(Console.ReadLine(), out int Diameter) && Diameter >= 0)
                     {
                         newSWP.Diameter = Diameter;
                     }
                     else
                     {
-                        Console.WriteLine("Please enter a valid selection");
+                        Console.WriteLine("Please enter a valid selection... " +
+                            "\ntry and not enter too many zeros!  No negatives!");
                         goto ReadDiameter;
                     }
-                    Console.WriteLine("Now enter in Climate information, in order to correctly submit multiple entries, please key as comma seperated values without spaces- I.E. - temperate,arctic");
+                    Console.WriteLine("Now enter in Climate information, in order to correctly submit multiple entries," +
+                        "\nplease key as comma seperated values without spaces- I.E. - temperate,arctic");
                     newSWP.Climate = Console.ReadLine();
                     Console.WriteLine("Please enter the graviational constant. If unknown, please type 0");
                     newSWP.Gravity = Console.ReadLine();
-                    Console.WriteLine("Now enter in Terrain information, in order to correctly submit multiple entries, please key as comma seperated values without spaces- I.E. -mountains,seas,grasslands,deserts");
+                    Console.WriteLine("Now enter in Terrain information, in order to correctly submit multiple entries, " +
+                        "\nplease key as comma seperated values without spaces- " +
+                        "\nI.E. -mountains,seas,grasslands,deserts");
                     newSWP.Terrain = Console.ReadLine();
-                    Console.WriteLine("Please enter in the percentage of the planet covered in water represented as an integer, if unknown, please type 0");
-                ReadWater: if (Int32.TryParse(Console.ReadLine(), out int Water))
+                    Console.WriteLine("Please enter in the percentage of the planet covered in water " +
+                        "\nrepresented as an integer, if unknown, please type 0");
+                ReadWater: if (Int32.TryParse(Console.ReadLine(), out int Water) && Water >= 0)
                     {
                         newSWP.Surface_water = Water;
                     }
                     else
                     {
-                        Console.WriteLine("Please enter a valid selection");
+                        Console.WriteLine("Please enter a valid selection... " +
+                            "\ntry and not enter too many zeros!  No negatives!");
                         goto ReadWater;
                     }
                     Console.WriteLine("Please key the population as a whole number. If unknown, please put 0.");
-                ReadPopulation: if (Int32.TryParse(Console.ReadLine(), out int Population))
+                ReadPopulation: if (Int64.TryParse(Console.ReadLine(), out Int64 Population) && Population >= 0)
                     {
                         newSWP.Population = Population;
                     }
                     else
                     {
-                        Console.WriteLine("Please enter a valid selection");
+                        Console.WriteLine("Please enter a valid selection... " +
+                            "\ntry not to put too many zeros!  No negatives!");
                         goto ReadPopulation;
                     }
 

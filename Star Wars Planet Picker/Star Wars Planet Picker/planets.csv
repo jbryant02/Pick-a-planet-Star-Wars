@@ -55,7 +55,7 @@ Ojom,0,0,0,"frigid",NA,"oceans,glaciers",100,500000000
 Skako,27,384,0,"temperate",1,"urban,vines",0,500000000000 
 Muunilinst,28,412,13800,"temperate",1,"plains,forests,hills,mountains",25,5000000000 
 Shili,0,0,0,"temperate",1,"cities,savannahs,seas,plains",0,0 
-Kalee,23,378,13850,"arid, temperate, tropical",1,"rainforests,cliffs,canyons,seas",0,4000000000 
+Kalee,23,378,13850,"arid, temperate, tropical",1,"rainforests,cliffs,canyons,seas",30,4000000000 
 Umbara,0,0,0,"NA",NA,"NA",0,0 
 Tatooine,23,304,10465,"arid",1 standard,"deserts",1,200000 
 Jakku,0,0,0,"NA",NA,"deserts",0,0 

@@ -39,7 +39,7 @@ namespace Star_Wars
 
         public static void Return() //checks for user input to either return to the main menu or exit the program.
         {
-            Console.WriteLine("Type R to return to main menu, key anything else to exit program");
+            Console.WriteLine("\nType R to return to main menu, key anything else to exit program");
             string selectionConfirm = Console.ReadLine().Trim().ToUpper(); 
             if (selectionConfirm == "R")
             {
@@ -53,13 +53,26 @@ namespace Star_Wars
         }
         public static void PrintScore(List<SWPlanets> fileContents) //checks for confirmation to display full list of scores.
         {
-            Console.WriteLine("\n\nType S to display a full list of planets with their corresponding matches to your criteria");
+            Console.WriteLine("\n\nType S to display a full list of planets with their corresponding matches to your criteria," +
+                "\ntype R to return to the main menu, or type anything else to exit.");
             string selectionConfirm = Console.ReadLine().Trim().ToUpper();
             if (selectionConfirm == "S")
             {
                 Console.Clear();
                 Calculations.ListPlanetsScore(fileContents);
+                Confirmations.Return();
             }
+            if (selectionConfirm == "R")
+            {
+                Console.Clear();
+                MainMenu.DisplayMainMenu();
+            }
+            else
+            {
+                Environment.Exit(0); //exits program.
+            }
+            
+            Confirmations.Return();
         }
     }
 }

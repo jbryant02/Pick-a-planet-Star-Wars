@@ -99,8 +99,8 @@ namespace Star_Wars
         {
             Console.WriteLine($"Which population size do you prefer? \n" +
                 $"Select 1 for Small (Less than 10 million)\n" +
-                $"Select 2 for Medium (Between 10 million and 3 billion)\n" +
-                $"Select 3 for Large (In excess of 3 billion)");
+                $"Select 2 for Medium (Between 10 million and 2.999 billion)\n" +
+                $"Select 3 for Large (3 billion +)");
         ReadLine: var popPick = Console.ReadLine(); //reads the population selected.
             bool success = Int32.TryParse(popPick, out int popPickParse); //Parses the biome to an int to be used in the PickMyPlanet method.
             if (success)
@@ -126,8 +126,8 @@ namespace Star_Wars
         {
             Console.WriteLine($"Which surface water % do you prefer? \n" +
                 $"Select 1 for Small (0%-29.99%)\n" +
-                $"Select 2 for Medium(30%-60%) \n" +
-                $"Select 3 for Large(60.01%+)");
+                $"Select 2 for Medium(30%-59.9%) \n" +
+                $"Select 3 for Large(60.0%+)");
         ReadLine: var waterPick = Console.ReadLine();
             bool success = Int32.TryParse(waterPick, out int waterPickParse);
             if (success)
@@ -155,84 +155,34 @@ namespace Star_Wars
 
             if (popq == 1)
             {
-                var lowPop = from i in sw
-                             where (i.Population < i.LowPopulation && i.Population > 1)
-                             select i;
-                var lowPopList = lowPop.ToList();
-                var counter = 0;
-                foreach (var i in lowPopList)
-                {
-                    lowPopList[counter].Score += 100;
-                    counter++;
-                }
+                var smallPop = 10_000_000;
+                var lowerLimit = 0;
+                Calculations.PopPick(lowerLimit, smallPop, sw);
             }
             if (popq == 2)
             {
-                var medPop = from i in sw
-                             where (i.Population >= i.LowPopulation && i.Population <= i.MedPopulation)
-                             select i;
-                var medPopList = medPop.ToList();
-                var counter = 0;
-
-                foreach (var i in medPopList)
-                {
-                    medPopList[counter].Score += 100;
-                    counter++;
-                }
+                var medPop = 3_000_000_000;
+                var lowerLimit = 10_000_000;
+                Calculations.PopPick(lowerLimit, medPop, sw);
             }
             if (popq == 3)
             {
-                var highPop = from i in sw
-                              where (i.Population > i.MedPopulation)
-                              select i;
-                var highPopList = highPop.ToList();
-                var counter = 0;
-
-                foreach (var i in highPopList)
-                {
-                    highPopList[counter].Score += 100;
-                    counter++;
-                }
+                var largePop = 9_223_372_036_854_775_807; //unable to not use a maximum limit in the method being used, used the int 64 max which is the highest number a user can put in.
+                var lowerLimit = 3_000_000_000;
+                Calculations.PopPick(lowerLimit, largePop, sw);
             }
 
             if (BiomeDict.TryGetValue(terrainq, out string myValue)) //searches dictionary for value.
             {
-                var biomeScore = from i in sw
-                                 where i.Terrain.Contains(myValue) //selects Terrain that contains the biome selection
-                                 select i;
-                var counter = 0;
-                var biomeScoreList = biomeScore.ToList();
-                foreach (var i in biomeScoreList)
-                {
-                    biomeScoreList[counter].Score += 100; //Takes all selected values and adds 100 to the score.
-                    counter++;
-                }
+                AddBiomeScore(myValue, sw);
             }
-            if (BiomeDict.TryGetValue(terrainq2, out string myValue2)) //Unsure of how not to repeat code here...
+            if (BiomeDict.TryGetValue(terrainq2, out string myValue2))
             {
-                var biomeScore = from i in sw
-                                 where i.Terrain.Contains(myValue2)
-                                 select i;
-                var counter = 0;
-                var biomeScoreList = biomeScore.ToList();
-                foreach (var i in biomeScoreList)
-                {
-                    biomeScoreList[counter].Score += 100;
-                    counter++;
-                }
+                AddBiomeScore(myValue2, sw);
             }
             if (BiomeDict.TryGetValue(terrainq3, out string myValue3)) 
             {
-                var biomeScore = from i in sw
-                                 where i.Terrain.Contains(myValue3)
-                                 select i;
-                var counter = 0;
-                var biomeScoreList = biomeScore.ToList();
-                foreach (var i in biomeScoreList)
-                {
-                    biomeScoreList[counter].Score += 100;
-                    counter++;
-                }
+                AddBiomeScore(myValue3, sw);
             }
             else
             {
@@ -241,42 +191,25 @@ namespace Star_Wars
 
             if (waterq == 1)  //sorts through water selection, adds score if value is selected to appropriate planets.
             {
-                var smallWater = from i in sw //the code below matches the selection to planets meeting the criteria and assigns them a score of an additonal 100.
-                              where (i.Surface_water < 30)
-                              select i;
-                var smallWaterList = smallWater.ToList();
-                var counter = 0;
-                foreach (var i in smallWaterList)
-                {
-                    smallWaterList[counter].Score += 100;
-                    counter++;
-                }
+                var smallWater = 30;
+                var lowerLimit = 0;
+                Calculations.AddWaterScore(smallWater, lowerLimit, sw); //calls method to add score to relevant planets.
+
+
             }
             if (waterq == 2)
             {
-                var medWater = from i in sw
-                                 where (i.Surface_water >= 30 && i.Surface_water <= 60)
-                                 select i;
-                var medWaterList = medWater.ToList();
-                var counter = 0;
-                foreach (var i in medWaterList)
-                {
-                    medWaterList[counter].Score += 100;
-                    counter++;
-                }
+                var medWater = 60;
+                var lowerLimit = 30;
+                Calculations.AddWaterScore(medWater, lowerLimit, sw);
+
             }
             if (waterq == 3)
             {
-                var largeWater = from i in sw
-                                 where (i.Surface_water > 60)
-                                 select i;
-                var largeWaterList = largeWater.ToList();
-                var counter = 0;
-                foreach (var i in largeWaterList)
-                {
-                    largeWaterList[counter].Score += 100;
-                    counter++;
-                }
+                var largeWater = 101; //set 1 above so I can use only a less than operator in the method.
+                var lowerLimit = 60;
+                Calculations.AddWaterScore(largeWater, lowerLimit, sw);
+
             }
 
             var pickedPlanets = (from i in sw
@@ -314,6 +247,49 @@ namespace Star_Wars
                     $"Population: {sw[counter].Population} \n"); //excluded some mostly unused items to reduce the amount of content.
                 counter++;
             }
+        }
+        public static void AddBiomeScore(string myValue, List<SWPlanets> sw)
+        {
+            var biomeScore = from i in sw
+                             where i.Terrain.Contains(myValue) //selects Terrain that contains the biome selection
+                             select i;
+            var counter = 0;
+            var biomeScoreList = biomeScore.ToList();
+            foreach (var i in biomeScoreList)
+            {
+                biomeScoreList[counter].Score += 100; //Takes all selected values and adds 100 to the score.
+                counter++;
+            }
+        }
+        public static void AddWaterScore(int waterMaxLimit, int waterLowerLimit, List<SWPlanets> sw)
+        {
+            var WaterSelection = from i in sw //the code below matches the selection to planets meeting the criteria and assigns them a score of an additonal 100.
+                             where (i.Surface_water <  waterMaxLimit && i.Surface_water >=  waterLowerLimit)
+                             select i;
+            var WaterList = WaterSelection.ToList();
+            var counter = 0;
+            foreach (var i in WaterList)
+            {
+                WaterList[counter].Score += 100;
+                counter++;
+            }
+        }
+        public static void PopPick(Int64 popqMinLimit, Int64 popqMaxLimit, List<SWPlanets> sw)
+        {
+            var Pop = from i in sw
+                      where (i.Population < popqMaxLimit && popqMinLimit <= i.Population)
+                      select i;
+            var PopList = Pop.ToList();
+            var counter = 0;
+            foreach (var i in PopList)
+            {
+                PopList[counter].Score += 100;
+                counter++;
+            }
+        }
+        public static void DictClear()
+        {
+            BiomeDict.Clear(); //clears the dictionary so the user can take the test again and the biomes will display.
         }
     }
 }

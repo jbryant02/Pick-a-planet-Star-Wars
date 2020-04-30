@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using System.Text.RegularExpressions;
 
-public sealed class CsvReader : System.IDisposable
+public sealed class CsvReader : System.IDisposable //these classes was taken from an answer on stack overflow. It reads the document and excludes the commas within the double quotes so additonal fields are not created.
 {
     public CsvReader(string fileName) : this(new FileStream(fileName, FileMode.Open, FileAccess.Read))
     {
