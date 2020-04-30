@@ -15,6 +15,10 @@ I kept as much out of the main method as possible and grouped as many relevant m
 
 I used if statements to call the main menu methods rather than putting the code within the if statements to ensure if I wanted to put additonal functionality within the code to to call the methods again in some other capacity, it would not rely on user input.
 
+## Starting the program
+
+If the .NET framework is installed in visual studio it should be as simple as opening the project and running it. There is a short cut to an exe within the bin folder that I was able to use to start the project, I am unsure if this requires any additional changes to the settings.
+
 ## Data source
 
 https://www.kaggle.com/jsphyg/star-wars#planets.csv
