@@ -14,3 +14,7 @@ Because of some difficulty reading the file with commas inside the values themse
 I kept as much out of the main method as possible and grouped as many relevant methods within classes as possible. When I could, I removed repetitive code and created new methods and called those methods when the code was needed.
 
 I used if statements to call the main menu methods rather than putting the code within the if statements to ensure if I wanted to put additonal functionality within the code to to call the methods again in some other capacity, it would not rely on user input.
+
+## Data source
+
+https://www.kaggle.com/jsphyg/star-wars#planets.csv
